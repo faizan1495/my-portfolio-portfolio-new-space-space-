@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { Code, Database, Wrench, Zap, Star, Rocket } from 'lucide-react';
-import { skills } from '../data/mock';
+import { portfolioAPI, fallbackData } from '../services/api';
 
 const Skills = () => {
   const [animatedLevels, setAnimatedLevels] = useState({});
