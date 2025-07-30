@@ -1,6 +1,6 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import { ArrowDown, Download, ExternalLink } from 'lucide-react';
-import { personalInfo } from '../data/mock';
+import { portfolioAPI, fallbackData } from '../services/api';
 
 const Hero = () => {
   const scrollToAbout = () => {
