@@ -1,6 +1,6 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { Menu, X, Rocket, Github, Linkedin, Mail } from 'lucide-react';
-import { personalInfo } from '../data/mock';
+import { portfolioAPI, fallbackData } from '../services/api';
 
 const Header = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
