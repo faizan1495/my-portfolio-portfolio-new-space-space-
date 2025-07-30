@@ -4,6 +4,41 @@ import { portfolioAPI, fallbackData } from '../services/api';
 
 const Projects = () => {
   const [selectedProject, setSelectedProject] = useState(null);
+  const [projects, setProjects] = useState([]);
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState(null);
+
+  useEffect(() => {
+    const fetchProjects = async () => {
+      try {
+        setLoading(true);
+        const data = await portfolioAPI.getProjects();
+        setProjects(data || []);
+      } catch (err) {
+        console.error('Failed to fetch projects:', err);
+        setError(err.message);
+        // Use fallback data
+        setProjects(fallbackData.projects);
+      } finally {
+        setLoading(false);
+      }
+    };
+
+    fetchProjects();
+  }, []);
+
+  if (loading) {
+    return (
+      <section id="projects" className="relative py-24 px-6 bg-gradient-to-br from-slate-900 via-purple-900/30 to-slate-900">
+        <div className="container mx-auto max-w-7xl flex items-center justify-center min-h-[400px]">
+          <div className="text-center">
+            <div className="w-16 h-16 border-4 border-purple-400 border-t-transparent rounded-full animate-spin mx-auto mb-4"></div>
+            <p className="text-purple-400">Loading mission projects...</p>
+          </div>
+        </div>
+      </section>
+    );
+  }
 
   const ProjectCard = ({ project, index }) => (
     <div className="group relative bg-slate-800/50 backdrop-blur-sm rounded-2xl overflow-hidden border border-purple-500/20 hover:border-cyan-400/40 transition-all duration-500 hover:scale-105 hover:shadow-2xl hover:shadow-cyan-500/10">
