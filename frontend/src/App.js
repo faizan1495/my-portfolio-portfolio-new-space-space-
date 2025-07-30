@@ -94,6 +94,9 @@ const Portfolio = () => {
         <Contact />
         <Footer />
       </div>
+      
+      {/* Toast Notifications */}
+      <Toaster />
     </div>
   );
 };
