@@ -4,6 +4,24 @@ import { portfolioAPI, fallbackData } from '../services/api';
 
 const Header = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
+  const [portfolioData, setPortfolioData] = useState(null);
+
+  useEffect(() => {
+    const fetchPortfolioData = async () => {
+      try {
+        const data = await portfolioAPI.getPortfolio();
+        setPortfolioData(data);
+      } catch (err) {
+        console.error('Failed to fetch portfolio data:', err);
+        // Use fallback data
+        setPortfolioData({ personalInfo: fallbackData.personalInfo });
+      }
+    };
+
+    fetchPortfolioData();
+  }, []);
+
+  const personalInfo = portfolioData?.personalInfo || fallbackData.personalInfo;
 
   const navItems = [
     { name: 'Home', href: '#home', icon: '🏠' },
