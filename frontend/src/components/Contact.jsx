@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { Mail, Phone, MapPin, Linkedin, Github, Send, Rocket, MessageCircle } from 'lucide-react';
-import { personalInfo } from '../data/mock';
+import { portfolioAPI, fallbackData } from '../services/api';
+import { useToast } from '../hooks/use-toast';
 
 const Contact = () => {
   const [formData, setFormData] = useState({
