@@ -100,7 +100,7 @@ const Skills = () => {
   const skillCategories = [
     {
       title: "Programming Languages",
-      skills: skills.programming,
+      skills: skills.programming || [],
       icon: Code,
       color: {
         bg: "bg-gradient-to-br from-cyan-500/20 to-blue-600/20",
@@ -112,7 +112,7 @@ const Skills = () => {
     },
     {
       title: "Frameworks & APIs",
-      skills: skills.frameworks,
+      skills: skills.frameworks || [],
       icon: Rocket,
       color: {
         bg: "bg-gradient-to-br from-purple-500/20 to-pink-600/20",
@@ -124,7 +124,7 @@ const Skills = () => {
     },
     {
       title: "Tools & Database",
-      skills: skills.tools,
+      skills: skills.tools || [],
       icon: Database,
       color: {
         bg: "bg-gradient-to-br from-green-500/20 to-emerald-600/20",
@@ -136,7 +136,7 @@ const Skills = () => {
     },
     {
       title: "Soft Skills",
-      skills: skills.soft,
+      skills: skills.soft || [],
       icon: Star,
       color: {
         bg: "bg-gradient-to-br from-yellow-500/20 to-orange-600/20",
