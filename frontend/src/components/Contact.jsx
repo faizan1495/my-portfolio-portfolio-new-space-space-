@@ -11,6 +11,10 @@ const Contact = () => {
     message: ''
   });
   const [isSubmitting, setIsSubmitting] = useState(false);
+  const { toast } = useToast();
+
+  // Use fallback data for personal info (should be same across components)
+  const personalInfo = fallbackData.personalInfo;
 
   const handleChange = (e) => {
     setFormData(prev => ({
