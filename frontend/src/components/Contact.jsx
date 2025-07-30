@@ -27,12 +27,28 @@ const Contact = () => {
     e.preventDefault();
     setIsSubmitting(true);
     
-    // Simulate form submission
-    setTimeout(() => {
-      alert('Message sent! I\'ll get back to you soon.');
+    try {
+      await portfolioAPI.submitContact(formData);
+      
+      toast({
+        title: "Message Sent Successfully! 🚀",
+        description: "Thank you for reaching out. I'll get back to you soon!",
+        duration: 5000,
+      });
+      
       setFormData({ name: '', email: '', subject: '', message: '' });
+    } catch (error) {
+      console.error('Contact form error:', error);
+      
+      toast({
+        title: "Message Failed to Send ❌",
+        description: error.message || "Please try again later or contact me directly via email.",
+        duration: 5000,
+        variant: "destructive",
+      });
+    } finally {
       setIsSubmitting(false);
-    }, 2000);
+    }
   };
 
   const contactMethods = [
