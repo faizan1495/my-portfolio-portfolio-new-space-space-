@@ -1,6 +1,6 @@
 import React from 'react';
 import { Heart, Rocket, Mail, Linkedin, ArrowUp, Code } from 'lucide-react';
-import { personalInfo } from '../data/mock';
+import { fallbackData } from '../services/api';
 
 const Footer = () => {
   const scrollToTop = () => {
