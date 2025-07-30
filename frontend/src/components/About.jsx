@@ -3,6 +3,50 @@ import { Rocket, Code, Coffee, Zap, Heart } from 'lucide-react';
 import { portfolioAPI, fallbackData } from '../services/api';
 
 const About = () => {
+  const [portfolioData, setPortfolioData] = useState(null);
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState(null);
+
+  useEffect(() => {
+    const fetchPortfolioData = async () => {
+      try {
+        setLoading(true);
+        const data = await portfolioAPI.getPortfolio();
+        setPortfolioData(data);
+      } catch (err) {
+        console.error('Failed to fetch portfolio data:', err);
+        setError(err.message);
+        // Use fallback data
+        setPortfolioData({ personalInfo: fallbackData.personalInfo });
+      } finally {
+        setLoading(false);
+      }
+    };
+
+    fetchPortfolioData();
+  }, []);
+
+  if (loading) {
+    return (
+      <section id="about" className="relative py-24 px-6 bg-gradient-to-br from-slate-900 via-purple-900/50 to-slate-900">
+        <div className="container mx-auto max-w-6xl flex items-center justify-center min-h-[400px]">
+          <div className="text-center">
+            <div className="w-16 h-16 border-4 border-cyan-400 border-t-transparent rounded-full animate-spin mx-auto mb-4"></div>
+            <p className="text-cyan-400">Loading cosmic data...</p>
+          </div>
+        </div>
+      </section>
+    );
+  }
+
+  const personalInfo = portfolioData?.personalInfo || fallbackData.personalInfo;
+  const achievements = [
+    "Successfully delivered E-commerce platform increasing client business by 40%",
+    "Implemented microservices architecture reducing system downtime by 60%",
+    "Achieved 74% in Advanced Computing Diploma from CDAC",
+    "Led backend development team of 3 developers on major project",
+    "Optimized database queries improving application response time by 45%"
+  ];
   return (
     <section id="about" className="relative py-24 px-6 bg-gradient-to-br from-slate-900 via-purple-900/50 to-slate-900">
       <div className="container mx-auto max-w-6xl">
