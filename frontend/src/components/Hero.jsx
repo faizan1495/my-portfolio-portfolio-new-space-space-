@@ -3,6 +3,27 @@ import { ArrowDown, Download, ExternalLink } from 'lucide-react';
 import { portfolioAPI, fallbackData } from '../services/api';
 
 const Hero = () => {
+  const [portfolioData, setPortfolioData] = useState(null);
+  const [loading, setLoading] = useState(true);
+
+  useEffect(() => {
+    const fetchPortfolioData = async () => {
+      try {
+        const data = await portfolioAPI.getPortfolio();
+        setPortfolioData(data);
+      } catch (err) {
+        console.error('Failed to fetch portfolio data:', err);
+        // Use fallback data
+        setPortfolioData({ personalInfo: fallbackData.personalInfo });
+      } finally {
+        setLoading(false);
+      }
+    };
+
+    fetchPortfolioData();
+  }, []);
+
+  const personalInfo = portfolioData?.personalInfo || fallbackData.personalInfo;
   const scrollToAbout = () => {
     const aboutSection = document.querySelector('#about');
     if (aboutSection) {
