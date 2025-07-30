@@ -8,6 +8,7 @@ const Footer = () => {
   };
 
   const currentYear = new Date().getFullYear();
+  const personalInfo = fallbackData.personalInfo;
 
   return (
     <footer className="relative bg-gradient-to-br from-slate-900 via-slate-800 to-purple-900/50 border-t border-purple-500/20">
