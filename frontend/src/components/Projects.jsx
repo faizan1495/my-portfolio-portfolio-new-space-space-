@@ -1,6 +1,6 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { ExternalLink, Github, Calendar, Zap, Code, Layers } from 'lucide-react';
-import { projects } from '../data/mock';
+import { portfolioAPI, fallbackData } from '../services/api';
 
 const Projects = () => {
   const [selectedProject, setSelectedProject] = useState(null);
