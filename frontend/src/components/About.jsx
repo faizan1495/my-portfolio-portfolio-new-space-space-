@@ -1,6 +1,6 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import { Rocket, Code, Coffee, Zap, Heart } from 'lucide-react';
-import { personalInfo, achievements } from '../data/mock';
+import { portfolioAPI, fallbackData } from '../services/api';
 
 const About = () => {
   return (
