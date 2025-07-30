@@ -3,6 +3,41 @@ import { GraduationCap, Calendar, Award, BookOpen, Star } from 'lucide-react';
 import { portfolioAPI, fallbackData } from '../services/api';
 
 const Education = () => {
+  const [education, setEducation] = useState([]);
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState(null);
+
+  useEffect(() => {
+    const fetchEducation = async () => {
+      try {
+        setLoading(true);
+        const data = await portfolioAPI.getEducation();
+        setEducation(data || fallbackData.education);
+      } catch (err) {
+        console.error('Failed to fetch education:', err);
+        setError(err.message);
+        // Use fallback data
+        setEducation(fallbackData.education);
+      } finally {
+        setLoading(false);
+      }
+    };
+
+    fetchEducation();
+  }, []);
+
+  if (loading) {
+    return (
+      <section id="education" className="relative py-24 px-6 bg-gradient-to-br from-slate-900 via-purple-900/30 to-slate-900">
+        <div className="container mx-auto max-w-6xl flex items-center justify-center min-h-[400px]">
+          <div className="text-center">
+            <div className="w-16 h-16 border-4 border-yellow-400 border-t-transparent rounded-full animate-spin mx-auto mb-4"></div>
+            <p className="text-yellow-400">Loading academic journey...</p>
+          </div>
+        </div>
+      </section>
+    );
+  }
   const EducationCard = ({ edu, index, isHighlighted }) => (
     <div className={`relative group ${isHighlighted ? 'lg:scale-105' : ''}`}>
       {/* Timeline Connector */}
