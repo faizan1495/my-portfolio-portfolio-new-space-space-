@@ -1,6 +1,6 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import { GraduationCap, Calendar, Award, BookOpen, Star } from 'lucide-react';
-import { education } from '../data/mock';
+import { portfolioAPI, fallbackData } from '../services/api';
 
 const Education = () => {
   const EducationCard = ({ edu, index, isHighlighted }) => (
