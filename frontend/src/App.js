@@ -13,6 +13,7 @@ import Skills from "./components/Skills";
 import Education from "./components/Education";
 import Contact from "./components/Contact";
 import Footer from "./components/Footer";
+import { Toaster } from "./components/ui/toaster";
 
 const Portfolio = () => {
   useEffect(() => {
