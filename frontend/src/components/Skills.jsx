@@ -4,19 +4,53 @@ import { portfolioAPI, fallbackData } from '../services/api';
 
 const Skills = () => {
   const [animatedLevels, setAnimatedLevels] = useState({});
+  const [skills, setSkills] = useState(fallbackData.skills);
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState(null);
 
   useEffect(() => {
-    // Animate skill levels on mount
+    const fetchSkills = async () => {
+      try {
+        setLoading(true);
+        const data = await portfolioAPI.getSkills();
+        setSkills(data || fallbackData.skills);
+      } catch (err) {
+        console.error('Failed to fetch skills:', err);
+        setError(err.message);
+        // Keep fallback data already set
+      } finally {
+        setLoading(false);
+      }
+    };
+
+    fetchSkills();
+  }, []);
+
+  useEffect(() => {
+    // Animate skill levels on mount or data change
     const timer = setTimeout(() => {
       const levels = {};
-      [...skills.programming, ...skills.frameworks, ...skills.tools, ...skills.soft].forEach(skill => {
+      [...(skills.programming || []), ...(skills.frameworks || []), ...(skills.tools || []), ...(skills.soft || [])].forEach(skill => {
         levels[skill.name] = skill.level;
       });
       setAnimatedLevels(levels);
     }, 500);
 
     return () => clearTimeout(timer);
-  }, []);
+  }, [skills]);
+
+  if (loading) {
+    return (
+      <section id="skills" className="relative py-24 px-6 bg-gradient-to-br from-slate-900 via-purple-900/30 to-slate-900">
+        <div className="container mx-auto max-w-7xl flex items-center justify-center min-h-[400px]">
+          <div className="text-center">
+            <div className="w-16 h-16 border-4 border-green-400 border-t-transparent rounded-full animate-spin mx-auto mb-4"></div>
+            <p className="text-green-400">Loading skill galaxy...</p>
+          </div>
+        </div>
+      </section>
+    );
+  }
 
   const SkillPlanet = ({ skill, index, icon: Icon, color }) => (
     <div className="group relative">
